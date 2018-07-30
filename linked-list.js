@@ -12,7 +12,6 @@ class LinkedList {
   }
 
   insertLast(item) {
-    
     if (this.head === null) {
       this.insertFirst(item);
     } else {
@@ -98,16 +97,11 @@ class LinkedList {
   }
 
   find(item) {
-
-    console.log(item)
     let currNode = this.head;
     if (!this.head) {
       return null;
     }
-    let key;
-      
-    while (currNode.value !== item && key !== item ) {
-      try {key = currNode.value.key;} catch (error) { }
+    while (currNode.value !== item) {
       if (currNode.next === null) {
         return null;
       } else {
@@ -121,20 +115,16 @@ class LinkedList {
     if (!this.head) {
       return null;
     }
-    let currNode = this.head;
-    let prevNode = this.head;
 
-    let key;
-    try {key = currNode.value.key;} catch (error) { }
-    
-
-    if (this.head.value === item || key === item ) {
+    if (this.head.value === item) {
       this.head = this.head.next;
       return;
     }
 
-    while (currNode !== null && currNode.value !== item && key !== item) {
-      try {key = currNode.value.key;} catch (error) { }
+    let currNode = this.head;
+    let prevNode = this.head;
+
+    while (currNode !== null && currNode.value !== item) {
       prevNode = currNode;
       currNode = currNode.next;
     }
@@ -157,6 +147,8 @@ class LinkedList {
     return listLength;
   }
 }
+
+module.exports = LinkedList;
 
 // HELPER FUNCTIONS //
 

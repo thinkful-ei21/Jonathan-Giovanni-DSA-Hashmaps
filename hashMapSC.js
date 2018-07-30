@@ -1,7 +1,6 @@
 'use strict';
 
-const {LinkedList, display} = require('./linked-list');
-
+const { LinkedList, display } = require('./linked-list');
 
 class HashMap {
   constructor(initialCapacity = 20) {
@@ -22,29 +21,26 @@ class HashMap {
 
   //set will have to add to a list and call insertLast method
   set(key, value) {
-
     //might need to change something here to deal with changes in deletion
     const loadRatio = (this.length + this._deleted + 1) / this._capacity;
     if (loadRatio > HashMap.MAX_LOAD_RATIO) {
       this._resize(this._capacity * HashMap.SIZE_RATIO);
     }
-    
+
     const index = this._findSlot(key);
     // console.log(value, index);
 
-    const kvPair = {key, value};
+    const kvPair = { key, value };
 
-    if(this._slots[index] === undefined){
-      
-      this._slots[index] = new LinkedList();    
+    if (this._slots[index] === undefined) {
+      this._slots[index] = new LinkedList();
     }
 
     const obj = this._slots[index].find(key);
-    console.log(this._slots[index])
-    if(obj === null){
+    console.log(this._slots[index]);
+    if (obj === null) {
       this._slots[index].insertLast(kvPair);
-    }
-    else{
+    } else {
       this._slots[index].remove(key);
       this._slots[index].insertLast(kvPair);
     }
@@ -85,7 +81,6 @@ class HashMap {
       }
     }
   }
-
 
   _resize(size) {
     const oldSlots = this._slots;
