@@ -29,7 +29,10 @@ class HashMap {
       value,
       deleted: false
     };
+
+    // if (!this._slots[index]) {
     this.length++;
+    // }
   }
 
   remove(key) {

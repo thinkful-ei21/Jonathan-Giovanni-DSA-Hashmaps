@@ -1,9 +1,12 @@
 'use strict';
 
-const HashMap = require('./hashMap');
+// const HashMap = require('./hashMapOA');
+const HashMap = require('./hashMapSC');
+
+//////////////////////////////////////////////////////////////////////////
 
 const checkAnyPermutationIsPalindrome = string => {
-  //if is an odd of more than one letter = false;
+  //if there is an odd number of more than one letter = false;
   const HM = new HashMap();
   for (const char of string) {
     let num;
@@ -14,7 +17,7 @@ const checkAnyPermutationIsPalindrome = string => {
     }
     HM.set(char, num + 1);
   }
-
+  console.log(HM);
   if (HM.length === 0) {
     throw new Error('Empty HashMap');
   }
@@ -24,6 +27,7 @@ const checkAnyPermutationIsPalindrome = string => {
     if (HM.get(char) % 2 !== 0) {
       odd++;
     }
+    console.log(odd);
     if (odd > 1) {
       return false;
     }
@@ -31,10 +35,39 @@ const checkAnyPermutationIsPalindrome = string => {
   return true;
 };
 
+//////////////////////////////////////////////////////////////////////////
+
+const anagramGrouping = arr => {
+  const HM = new HashMap();
+  const returnArr = [];
+  const sortedKeyArr = [];
+  for (const item of arr) {
+    let sortedKey = item
+      .split('')
+      .sort()
+      .join('');
+
+    try {
+      let prevItem = HM.get(sortedKey);
+      HM.set(sortedKey, [...prevItem, item]);
+    } catch (err) {
+      HM.set(sortedKey, [item]);
+      sortedKeyArr.push(sortedKey);
+    }
+  }
+
+  for (const group of sortedKeyArr) {
+    returnArr.push(HM.get(group));
+  }
+  return returnArr;
+};
+
+//////////////////////////////////////////////////////////////////////////
+
 const main = () => {
   const lor = new HashMap();
 
-  const input = [
+  const inputLor = [
     { Hobbit: 'Bilbo' },
     { Hobbit: 'Frodo' },
     { Wizard: 'Gandolf' },
@@ -48,7 +81,7 @@ const main = () => {
     { Ent: 'Treebeard' }
   ];
 
-  for (const item of input) {
+  for (const item of inputLor) {
     lor.set(Object.keys(item)[0], Object.values(item)[0]);
   }
 
@@ -56,8 +89,11 @@ const main = () => {
   // console.log(lor.get('Maiar'));
   // console.log(lor.get('Hobbit'));
 
-  console.log(checkAnyPermutationIsPalindrome('acecarr'));
-  console.log(checkAnyPermutationIsPalindrome('north'));
+  // console.log(checkAnyPermutationIsPalindrome('acecarr')); // True
+  // console.log(checkAnyPermutationIsPalindrome('north')); // False
+
+  // const inputArr = ['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race'];
+  // console.log(anagramGrouping(inputArr));
 };
 
 main();
