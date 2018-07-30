@@ -1,6 +1,6 @@
 'use strict';
 
-// const HashMap = require('./hashMapOA');
+//const HashMap = require('./hashMapOA');
 const HashMap = require('./hashMapSC');
 
 //////////////////////////////////////////////////////////////////////////
@@ -85,6 +85,7 @@ const main = () => {
     lor.set(Object.keys(item)[0], Object.values(item)[0]);
   }
 
+  // console.log(lor)
   //The set method is overriding the values. Is this ok?
   // console.log(lor.get('Maiar'));
   // console.log(lor.get('Hobbit'));

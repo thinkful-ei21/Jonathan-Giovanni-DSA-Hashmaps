@@ -12,6 +12,7 @@ class LinkedList {
   }
 
   insertLast(item) {
+    
     if (this.head === null) {
       this.insertFirst(item);
     } else {
@@ -97,11 +98,16 @@ class LinkedList {
   }
 
   find(item) {
+
+    console.log(item)
     let currNode = this.head;
     if (!this.head) {
       return null;
     }
-    while (currNode.value !== item) {
+    let key;
+      
+    while (currNode.value !== item && key !== item ) {
+      try {key = currNode.value.key;} catch (error) { }
       if (currNode.next === null) {
         return null;
       } else {
@@ -115,16 +121,20 @@ class LinkedList {
     if (!this.head) {
       return null;
     }
+    let currNode = this.head;
+    let prevNode = this.head;
 
-    if (this.head.value === item) {
+    let key;
+    try {key = currNode.value.key;} catch (error) { }
+    
+
+    if (this.head.value === item || key === item ) {
       this.head = this.head.next;
       return;
     }
 
-    let currNode = this.head;
-    let prevNode = this.head;
-
-    while (currNode !== null && currNode.value !== item) {
+    while (currNode !== null && currNode.value !== item && key !== item) {
+      try {key = currNode.value.key;} catch (error) { }
       prevNode = currNode;
       currNode = currNode.next;
     }

@@ -1,13 +1,17 @@
 'use strict';
 
+const {LinkedList, display} = require('./linked-list');
+
+
 class HashMap {
-  constructor(initialCapacity = 8) {
+  constructor(initialCapacity = 20) {
     this.length = 0;
     this._slots = [];
     this._capacity = initialCapacity;
     this._deleted = 0;
   }
 
+  //get will have to look through list to find key (pre-hash) calling find method
   get(key) {
     const index = this._findSlot(key);
     if (this._slots[index] === undefined) {
@@ -16,19 +20,41 @@ class HashMap {
     return this._slots[index].value;
   }
 
+  //set will have to add to a list and call insertLast method
   set(key, value) {
+
+    //might need to change something here to deal with changes in deletion
     const loadRatio = (this.length + this._deleted + 1) / this._capacity;
     if (loadRatio > HashMap.MAX_LOAD_RATIO) {
       this._resize(this._capacity * HashMap.SIZE_RATIO);
     }
-
+    
     const index = this._findSlot(key);
     // console.log(value, index);
-    this._slots[index] = {
-      key,
-      value,
-      deleted: false
-    };
+
+    const kvPair = {key, value};
+
+    if(this._slots[index] === undefined){
+      
+      this._slots[index] = new LinkedList();    
+    }
+
+    const obj = this._slots[index].find(key);
+    console.log(this._slots[index])
+    if(obj === null){
+      this._slots[index].insertLast(kvPair);
+    }
+    else{
+      this._slots[index].remove(key);
+      this._slots[index].insertLast(kvPair);
+    }
+
+    // console.log(display(this._slots[index]));
+    // this._slots[index] = {
+    //   key,
+    //   value,
+    //   deleted: false
+    // };
 
     // if (!this._slots[index]) {
     this.length++;
@@ -46,6 +72,7 @@ class HashMap {
     this._deleted++;
   }
 
+  //this will be simplified bcs we won't have to travesrse
   _findSlot(key) {
     const hash = HashMap._hashString(key);
     const start = hash % this._capacity;
@@ -58,6 +85,7 @@ class HashMap {
       }
     }
   }
+
 
   _resize(size) {
     const oldSlots = this._slots;
