@@ -85,10 +85,17 @@ const main = () => {
     lor.set(Object.keys(item)[0], Object.values(item)[0]);
   }
 
-  // console.log(lor)
-  //The set method is overriding the values. Is this ok?
-  // console.log(lor.get('Maiar'));
-  // console.log(lor.get('Hobbit'));
+  // console.log(lor);
+  // lor.remove('Maiar');
+  // console.log(lor._slots);
+
+  console.log(lor._slots[2]);
+  console.log(lor._slots[4]);
+  console.log(lor._slots[6].head.next);
+  console.log(lor._slots[6]);
+  console.log(lor._slots[12]);
+
+  // lor.get('Ent');
 
   // console.log(checkAnyPermutationIsPalindrome('acecarr')); // True
   // console.log(checkAnyPermutationIsPalindrome('north')); // False
